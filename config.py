@@ -13,6 +13,7 @@ else:
     PROJECT_ROOT = REPO_ROOT.parent
 
 DATA_DIR = PROJECT_ROOT / "data"
+TARGET_COLUMN = "Churn"
 
 CSV_FILE = DATA_DIR / "Telco_Churn_cleaned_data.csv"
 @st.cache_data

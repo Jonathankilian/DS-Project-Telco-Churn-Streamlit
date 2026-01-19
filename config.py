@@ -4,33 +4,17 @@ import pandas as pd
 import numpy as np
 import numbers
 
-# Paths
-PROJECT_ROOT = Path(__file__).parent
+REPO_ROOT = Path(__file__).resolve().parents[0]
+
+# Falls diese Datei in pages/ oder utils/ liegt, eine Ebene hoch:
+if (REPO_ROOT / "data").exists():
+    PROJECT_ROOT = REPO_ROOT
+else:
+    PROJECT_ROOT = REPO_ROOT.parent
+
 DATA_DIR = PROJECT_ROOT / "data"
-MODELS_DIR = PROJECT_ROOT / "models"
-PAGES_DIR = PROJECT_ROOT / "pages"
 
-# Data
 CSV_FILE = DATA_DIR / "Telco_Churn_cleaned_data.csv"
-TARGET_COLUMN = "Churn"
-
-"""
-# NICHT MEHR IN VERWENDUNG
-@st.cache_data
-def get_config():
-    
-    '''Nutzt das bereits geladene (gecachedte) DataFrame für die Config.'''
-    # Ruft load_data() auf. Dank Cache wird die CSV NICHT erneut gelesen.
-    df = load_data()
-
-    config = {
-        'bool_cols': df.select_dtypes(include=['bool']).columns.tolist(),
-        'cat_cols': df.select_dtypes(include=['object', 'category']).columns.tolist(),
-        'num_cols': df.select_dtypes(include=['number']).columns.tolist(),
-        'all_cols': df.columns.tolist()
-    }
-    return config
-    """
 @st.cache_data
 def load_data():
     return pd.read_csv(CSV_FILE)
